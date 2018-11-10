@@ -12,6 +12,7 @@ WebLogin/.nb-gradle
 WebLogin/WebLogin.iml
 WebLogin/bin
 WebLogin/.settings
+WebLogin/chromedriver.exe
 
 LoginCucumber/build
 LoginCucumber/.gradle

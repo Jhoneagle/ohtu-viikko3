@@ -52,11 +52,7 @@ public class AuthenticationService {
         if (password.length() < 8) {
             return true;
         }
-        
-        if (!password.matches(".*\\d+.*")) {
-            return true;
-        }
-        
+	
         char[] specialCh = {'!','@',']','#','$','%','^','&','*','+','-'};
         boolean noSpecialCh = true;
         
@@ -68,6 +64,6 @@ public class AuthenticationService {
             }
         }
         
-        return noSpecialCh;
+        return noSpecialCh && !password.matches(".*\\d+.*");
     }
 }
