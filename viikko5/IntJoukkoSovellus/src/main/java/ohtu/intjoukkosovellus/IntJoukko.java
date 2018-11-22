@@ -11,13 +11,7 @@ public class IntJoukko {
     private int alkioidenLkm;    // Tyhjässä joukossa alkioiden_määrä on nolla. 
 
     public IntJoukko() {
-        ljono = new int[KAPASITEETTI];
-        for (int i = 0; i < ljono.length; i++) {
-            ljono[i] = 0;
-        }
-        
-        alkioidenLkm = 0;
-        this.kasvatuskoko = OLETUSKASVATUS;
+        init(KAPASITEETTI, OLETUSKASVATUS);
     }
 
     public IntJoukko(int kapasiteetti) {
@@ -25,14 +19,7 @@ public class IntJoukko {
             return;
         }
         
-        ljono = new int[kapasiteetti];
-        
-        for (int i = 0; i < ljono.length; i++) {
-            ljono[i] = 0;
-        }
-        
-        alkioidenLkm = 0;
-        this.kasvatuskoko = OLETUSKASVATUS;
+        init(kapasiteetti, OLETUSKASVATUS);
     }
     
     
@@ -45,17 +32,19 @@ public class IntJoukko {
             throw new IndexOutOfBoundsException("kapasiteetti2");//heitin vaan jotain :D
         }
         
+        init(kapasiteetti, kasvatuskoko);
+    }
+
+    private void init(int kapasiteetti, int kasvatuskoko) {
         ljono = new int[kapasiteetti];
-        
         for (int i = 0; i < ljono.length; i++) {
             ljono[i] = 0;
         }
         
         alkioidenLkm = 0;
         this.kasvatuskoko = kasvatuskoko;
-
-    }
-
+    } 
+    
     public boolean lisaa(int luku) {
         int eiOle = 0;
         
@@ -82,17 +71,19 @@ public class IntJoukko {
         
         return false;
     }
-
-    public boolean kuuluu(int luku) {
-        int on = 0;
-        
+    
+    private int hae(int luku) {
         for (int i = 0; i < alkioidenLkm; i++) {
             if (luku == ljono[i]) {
-                on++;
+                return i;
             }
         }
         
-        if (on > 0) {
+        return -1;
+    }
+    
+    public boolean kuuluu(int luku) {
+        if (hae(luku) >= 0) {
             return true;
         } else {
             return false;
@@ -100,16 +91,10 @@ public class IntJoukko {
     }
 
     public boolean poista(int luku) {
-        int kohta = -1;
+        int kohta = hae(luku);
         int apu;
         
-        for (int i = 0; i < alkioidenLkm; i++) {
-            if (luku == ljono[i]) {
-                kohta = i; //siis luku löytyy tuosta kohdasta :D
-                ljono[kohta] = 0;
-                break;
-            }
-        }
+        ljono[kohta] = 0;
         
         if (kohta != -1) {
             for (int j = kohta; j < alkioidenLkm - 1; j++) {
