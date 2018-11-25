@@ -14,5 +14,4 @@ public class PlaysIn implements Matcher {
     public boolean matches(Player p) {
         return p.getTeam().contains(team);
     }
-    
 }
