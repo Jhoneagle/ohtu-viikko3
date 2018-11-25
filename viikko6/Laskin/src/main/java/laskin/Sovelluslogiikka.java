@@ -16,6 +16,10 @@ public class Sovelluslogiikka {
         tulos = 0;
     }
  
+    public void palaa(int luku) {
+        tulos = luku;
+    }
+    
     public int tulos() {
         return tulos;
     }
