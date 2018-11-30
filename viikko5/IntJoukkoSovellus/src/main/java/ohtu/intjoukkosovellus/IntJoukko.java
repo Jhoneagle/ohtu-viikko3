@@ -46,22 +46,12 @@ public class IntJoukko {
     } 
     
     public boolean lisaa(int luku) {
-        int eiOle = 0;
-        
-        if (alkioidenLkm == 0) {
-            ljono[0] = luku;
-            alkioidenLkm++;
-            return true;
-        }
-        
         if (!kuuluu(luku)) {
             ljono[alkioidenLkm] = luku;
             alkioidenLkm++;
             
             if (alkioidenLkm % ljono.length == 0) {
-                int[] taulukkoOld = new int[ljono.length];
-                taulukkoOld = ljono;
-                kopioiTaulukko(ljono, taulukkoOld);
+                int[] taulukkoOld = ljono;
                 ljono = new int[alkioidenLkm + kasvatuskoko];
                 kopioiTaulukko(taulukkoOld, ljono);
             }
@@ -83,25 +73,19 @@ public class IntJoukko {
     }
     
     public boolean kuuluu(int luku) {
-        if (hae(luku) >= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return hae(luku) >= 0;
     }
 
     public boolean poista(int luku) {
         int kohta = hae(luku);
-        int apu;
-        
-        ljono[kohta] = 0;
         
         if (kohta != -1) {
             for (int j = kohta; j < alkioidenLkm - 1; j++) {
-                apu = ljono[j];
+                int apu = ljono[j];
                 ljono[j] = ljono[j + 1];
                 ljono[j + 1] = apu;
             }
+            
             alkioidenLkm--;
             return true;
         }
@@ -123,20 +107,14 @@ public class IntJoukko {
     public String toString() {
         if (alkioidenLkm == 0) {
             return "{}";
-        } else if (alkioidenLkm == 1) {
-            return "{" + ljono[0] + "}";
         } else {
             String tuotos = "{";
             
             for (int i = 0; i < alkioidenLkm - 1; i++) {
-                tuotos += ljono[i];
-                tuotos += ", ";
+                tuotos += ljono[i] + ", ";
             }
             
-            tuotos += ljono[alkioidenLkm - 1];
-            tuotos += "}";
-            
-            return tuotos;
+            return tuotos + ljono[alkioidenLkm - 1] + "}";
         }
     }
 
@@ -151,16 +129,15 @@ public class IntJoukko {
     }
    
     public static IntJoukko joukkoOperaatiot(IntJoukko a, IntJoukko b, String operaatio) {
-        IntJoukko x = new IntJoukko();
         int[] bTaulu = b.toIntArray();
         int[] aTaulu = a.toIntArray();
         
         if (operaatio.contains("yhdiste")) {
-            return yhdiste(aTaulu, bTaulu, x);
+            return yhdiste(aTaulu, bTaulu, new IntJoukko());
         } else if (operaatio.contains("leikkaus")) {
-            return leikkaus(aTaulu, bTaulu, x);
+            return leikkaus(aTaulu, bTaulu, new IntJoukko());
         } else if (operaatio.contains("erotus")) {
-            return erotus(aTaulu, bTaulu, x);
+            return erotus(aTaulu, bTaulu, new IntJoukko());
         } else {
             return null;
         }
