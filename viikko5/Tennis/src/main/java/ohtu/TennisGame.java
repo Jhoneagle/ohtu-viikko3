@@ -20,55 +20,42 @@ public class TennisGame {
     }
 
     public String getScore() {
-        int tempScore = 0;
         if (m_score1 == m_score2) {
             return tasatilanne();
         } else if (m_score1 >= 4 || m_score2 >= 4) {
             return isoEro();
         } else {
-            return pieniEro(tempScore);
+            return pieniEro(0);
         }
     }
     
     public String tasatilanne() {
-        String score = "";
-        
         switch (m_score1) {
             case 0:
-                score = "Love-All";
-                break;
+                return "Love-All";
             case 1:
-                score = "Fifteen-All";
-                break;
+                return "Fifteen-All";
             case 2:
-                score = "Thirty-All";
-                break;
+                return "Thirty-All";
             case 3:
-                score = "Forty-All";
-                break;
+                return "Forty-All";
             default:
-                score = "Deuce";
-                break;
+                return "Deuce";
         }
-        
-        return score;
     }
     
     public String isoEro() {
-        String score = "";
         int minusResult = m_score1 - m_score2;
             
         if (minusResult == 1) {
-            score  = "Advantage player1";
+            return "Advantage player1";
         } else if (minusResult == -1) {
-            score = "Advantage player2";
+            return "Advantage player2";
         } else if (minusResult >= 2) { 
-            score = "Win for player1";
+            return "Win for player1";
         } else  {
-            score ="Win for player2";
+            return "Win for player2";
         }
-        
-        return score;
     }
     
     public String pieniEro(int tempScore) {
@@ -78,7 +65,8 @@ public class TennisGame {
             if (i == 1) {
                 tempScore = m_score1;
             } else { 
-                score += "-"; tempScore = m_score2;
+                score += "-"; 
+                tempScore = m_score2;
             }
                 
             switch(tempScore) {
