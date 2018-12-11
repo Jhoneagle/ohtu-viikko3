@@ -1,0 +1,8 @@
+/build
+*.tmp
+/.gradle
+/.nb-gradle
+/.idea
+/out
+/bin
+.settings
